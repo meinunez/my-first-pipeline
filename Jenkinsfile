@@ -26,9 +26,11 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to Vercel...'
-                    sh """
-                        vercel --token $VERCEL_TOKEN --prod --yes --scope $VERCEL_ORG_ID --project $VERCEL_PROJECT_NAME
-                    """
+                    withCredentials([string(credentialsId: 'token-vercel', variable: 'VERCEL_TOKEN')]) {
+                        sh """
+                            vercel --token $VERCEL_TOKEN --prod --yes --scope $VERCEL_ORG_ID --project-id c3AHu2AjRy6ljp2cnIMaTb1U
+                        """
+                    }
                 }
             }
         }
