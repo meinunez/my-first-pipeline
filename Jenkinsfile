@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Clonar el repositorio
-                git url: 'https://github.com/meinunez/my-first-pipeline.git'
+                git url: 'https://github.com/meinunez/my-first-pipeline.git',  branch: 'main' 
             }
         }
         stage('Build') {
