@@ -3,7 +3,7 @@ pipeline {
     environment {
         // Cargar el token desde las credenciales de Jenkins
         VERCEL_TOKEN = credentials('token-vercel')  // Usando la credencial de token en Jenkins
-        VERCEL_ORG_ID = 'c3AHu2AjRy6ljp2cnIMaTb1U'  // Asegúrate de que este es tu ID de organización en Vercel
+        VERCEL_ORG_ID = 'team_JRC3KLemWgxsnZfSW3832CZq'  // Este es el ID de tu equipo en Vercel
         VERCEL_PROJECT_NAME = 'meinunezs-projects'  // Nombre de tu proyecto en Vercel
     }
     stages {
