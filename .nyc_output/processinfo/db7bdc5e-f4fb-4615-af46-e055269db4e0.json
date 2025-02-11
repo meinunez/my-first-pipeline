@@ -1,0 +1,1 @@
+{"parent":null,"pid":30517,"argv":["/usr/bin/node","/home/mei/my-first-pipeline/node_modules/.bin/mocha","--exit"],"execArgv":[],"cwd":"/home/mei/my-first-pipeline","time":1739275626605,"ppid":30506,"coverageFilename":"/home/mei/my-first-pipeline/.nyc_output/db7bdc5e-f4fb-4615-af46-e055269db4e0.json","externalId":"","uuid":"db7bdc5e-f4fb-4615-af46-e055269db4e0","files":[]}
