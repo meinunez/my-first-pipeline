@@ -3,7 +3,8 @@ pipeline {
     environment {
         // Cargar el token desde las credenciales de Jenkins
         VERCEL_TOKEN = credentials('token-vercel')  // Usando la credencial de token en Jenkins
-        VERCEL_ORG_ID = 'team_JRC3KLemWgxsnZfSW3832CZq'  // Este es el ID de tu equipo en Vercel
+        VERCEL_ORG_ID = 'team_JRC3KLemWgxsnZfSW3832CZq'  // ID de tu equipo en Vercel
+        VERCEL_PROJECT_ID = 'tu_project_id'  // Reemplaza con el Project ID de tu proyecto en Vercel
         VERCEL_PROJECT_NAME = 'meinunezs-projects'  // Nombre de tu proyecto en Vercel
     }
     stages {
@@ -26,11 +27,9 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to Vercel...'
-                    withCredentials([string(credentialsId: 'token-vercel', variable: 'VERCEL_TOKEN')]) {
-                        sh """
-                            vercel --token \$VERCEL_TOKEN --prod --confirm --scope \$VERCEL_ORG_ID --name \$VERCEL_PROJECT_NAME
-                        """
-                    }
+                    sh """
+                        vercel --token $VERCEL_TOKEN --prod --confirm --scope $VERCEL_ORG_ID --project-id $VERCEL_PROJECT_ID --name $VERCEL_PROJECT_NAME
+                    """
                 }
             }
         }
