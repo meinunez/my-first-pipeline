@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        VERCEL_TOKEN = credentials('VERCEL_TOKEN')  // Usar el ID que diste a las credenciales
+        VERCEL_TOKEN = credentials('token-vercel')  // Usar el ID que diste a las credenciales
         VERCEL_ORG_ID = 'c3AHu2AjRy6ljp2cnIMaTb1U'  // ID de la organización
         VERCEL_PROJECT_NAME = 'meinunezs-projects'   // Nombre de tu proyecto
     }
