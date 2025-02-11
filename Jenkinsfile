@@ -1,41 +1,28 @@
 pipeline {
     agent any
     environment {
-        // Cargar el token desde las credenciales de Jenkins
-        VERCEL_TOKEN = credentials('token-vercel')  // Usando la credencial de token en Jenkins
-        VERCEL_ORG_ID = 'team_JRC3KLemWgxsnZfSW3832CZq'  // ID de tu equipo en Vercel
-        VERCEL_PROJECT_ID = 'c3AHu2AjRy6ljp2cnIMaTb1U'  // ID de tu proyecto en Vercel
+        VERCEL_PROJECT_ID = 'c3AHu2AjRy6ljp2cnIMaTb1U'  // ID del proyecto en Vercel
+        VERCEL_TOKEN = credentials('vercel-token')  // Usando las credenciales de Jenkins para el token
     }
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/meinunez/my-first-pipeline.git', branch: 'main'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'npm install'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'npm test'
+                sh 'npm run build'
             }
         }
         stage('Deploy') {
             steps {
-                script {
-                    echo 'Deploying to Vercel...'
-                    withCredentials([string(credentialsId: 'token-vercel', variable: 'VERCEL_TOKEN')]) {
-                        sh """
-			    vercel --token $VERCEL_TOKEN --prod --scope $VERCEL_ORG_ID --project $VERCEL_PROJECT_NAME
-                        """
-                    }
+                withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
+                    // Despliegue con el token de Vercel
+                    sh '''
+                        vercel --token $VERCEL_TOKEN --prod --project-id $VERCEL_PROJECT_ID
+                    '''
                 }
             }
         }
     }
-    post {    
+    post {
         always {
             echo 'Pipeline completed.'
         }
