@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                withCredentials([string(credentialsId: 'vercel-token-mei', variable: 'VERCEL_TOKEN')]) {
+                withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
                     sh '''
                         export VERCEL_ORG_ID="team_JRC3KLemWgxsnZfSW3832CZq"
                         export VERCEL_PROJECT_NAME="meinunezs-projects"
