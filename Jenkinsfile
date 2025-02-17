@@ -1,39 +1,46 @@
 pipeline {
     agent any
+
     stages {
         stage('Checkout') {
             steps {
-                // Clonar el repositorio
-                git url: 'https://github.com/meinunez/my-first-pipeline.git',  branch: 'main' 
+                git url: 'https://github.com/meinunez/my-first-pipeline.git', branch: 'main'
             }
         }
-        stage('Build') {
+
+        stage('Install Dependencies') {
             steps {
-                // Instalar dependencias
                 sh 'npm install'
             }
         }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
         stage('Test') {
             steps {
-                // Ejecutar pruebas
                 sh 'npm test'
             }
         }
+
         stage('Deploy') {
             steps {
-                // Lógica de despliegue (por ejemplo, subir a un proveedor de la nube)
-                echo 'Deploying application...'
+                withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
+                    sh 'vercel --token $VERCEL_TOKEN --prod'
+                }
             }
         }
     }
+
     post {
         always {
-            // Este bloque siempre se ejecutará al final del pipeline
-            echo 'Pipeline completed.'
+            echo '¡Despliegue automatizado en Vercel!'
         }
         failure {
-            // Este bloque se ejecutará si el pipeline falla
-            echo 'Pipeline failed!'
+            echo '¡El despliegue automatizado en Vercel ha fallado!'
         }
     }
 }
