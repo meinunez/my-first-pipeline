@@ -1,29 +1,36 @@
+
 pipeline {
     agent any
 
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/meinunez/my-first-pipeline.git', branch: 'main'
+                git 'https://github.com/meinunez/my-first-pipeline.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                sh 'npm install'  // Instalar las dependencias necesarias
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'  // Esto genera el directorio 'build' o 'dist'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh 'npm test'  // Ejecutar las pruebas si es necesario
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Vercel') {
             steps {
                 withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
-                    sh 'vercel --token $VERCEL_TOKEN --prod --yes'
+                    sh 'vercel --token $VERCEL_TOKEN --prod --yes'  // Desplegar en Vercel
                 }
             }
         }
