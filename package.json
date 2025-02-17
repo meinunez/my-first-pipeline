@@ -10,7 +10,7 @@
   "scripts": {
     "test": "nyc --reporter=html mocha --exit",
     "start": "node app.js",
-    "build": "echo 'No build step defined'" // Paso de construcción
+    "build": "echo 'No build step defined'"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
