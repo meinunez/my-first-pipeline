@@ -5,26 +5,26 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/meinunez/my-first-pipeline.git'
+                git url: 'https://github.com/meinunez/my-first-pipeline.git', branch: 'main'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'  // Instalar las dependencias necesarias
+                sh 'npm install'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'npm test'  // Ejecutar las pruebas si es necesario
+                sh 'npm test'
             }
         }
 
-        stage('Deploy to Vercel') {
+        stage('Deploy') {
             steps {
                 withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
-                    sh 'vercel --token $VERCEL_TOKEN --prod --yes'  // Desplegar en Vercel
+                    sh 'vercel --token $VERCEL_TOKEN --prod --yes'
                 }
             }
         }
