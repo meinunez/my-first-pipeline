@@ -1,3 +1,4 @@
+
 {
   "name": "animal-farm-nodejs",
   "license": "MIT",
@@ -8,7 +9,8 @@
   },
   "scripts": {
     "test": "nyc --reporter=html mocha --exit",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "echo 'No build step defined'" // Paso de construcción
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
@@ -19,3 +21,4 @@
     "supertest": "^6.1.3"
   }
 }
+
