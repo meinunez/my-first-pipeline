@@ -15,12 +15,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                sh 'npm run build'  // Esto genera el directorio 'build' o 'dist'
-            }
-        }
-
         stage('Test') {
             steps {
                 sh 'npm test'  // Ejecutar las pruebas si es necesario
