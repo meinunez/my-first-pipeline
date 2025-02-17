@@ -1,40 +1,38 @@
 pipeline {
     agent any
-    environment {
-        VERCEL_ORG_ID = 'team_JRC3KLemWgxsnZfSW3832CZq'  // Team ID en Vercel
-        VERCEL_PROJECT_ID = 'c3AHu2AjRy6ljp2cnIMaTb1U'   // ID del proyecto en Vercel
-    }
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/meinunez/my-first-pipeline.git', branch: 'main'
+                // Clonar el repositorio
+                git url: 'https://github.com/meinunez/my-first-pipeline.git',  branch: 'main' 
             }
         }
         stage('Build') {
             steps {
+                // Instalar dependencias
                 sh 'npm install'
             }
         }
         stage('Test') {
             steps {
+                // Ejecutar pruebas
                 sh 'npm test'
             }
         }
         stage('Deploy') {
             steps {
-                withCredentials([string(credentialsId: 'vercel-token', variable: 'VERCEL_TOKEN')]) {
-                    sh '''
-                        vercel --token $VERCEL_TOKEN --prod --scope $VERCEL_ORG_ID --project $VERCEL_PROJECT_ID
-                    '''
-                }
+                // Lógica de despliegue (por ejemplo, subir a un proveedor de la nube)
+                echo 'Deploying application...'
             }
         }
     }
     post {
         always {
+            // Este bloque siempre se ejecutará al final del pipeline
             echo 'Pipeline completed.'
         }
         failure {
+            // Este bloque se ejecutará si el pipeline falla
             echo 'Pipeline failed!'
         }
     }
